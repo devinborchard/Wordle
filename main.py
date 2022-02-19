@@ -26,6 +26,7 @@ result = input('green = g, yellow = y, grey = o: ')
 
 possible_answers = checkWord(starting_word, word_list, result)
 
+
 found = False
 while not found:
     starting_word = possible_answers[0]
@@ -34,5 +35,6 @@ while not found:
 
     result = input('green = g, yellow = y, grey = o: ')
 
-    possible_answers = checkWord(starting_word, word_list, result)
+    possible_answers = checkWord(starting_word, possible_answers, result)
+    #print('Possible answers:', possible_answers)
 

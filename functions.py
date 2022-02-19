@@ -9,36 +9,59 @@ def checkWord(starting_word, word_list, result):
     for char in result:
         result_list.append(char)
 
-    '''BEGINNING TO LOGIC CHECK'''
+    green_letters = []
+    green_indexes = []
 
+    yellow_letters = []
+    yellow_indexes = []
+
+    for count, letter in enumerate(starting_word_list):
+        if result_list[count] == 'g':
+            green_letters.append(letter)
+            green_indexes.append(count)
+        if result_list[count] == 'y':
+            yellow_letters.append(letter)
+            yellow_indexes.append(count)
+
+    for index, char in enumerate(starting_word_list):
+        if green_letters.__contains__(char) and not green_indexes.__contains__(index):
+            if result_list[index] == 'o':
+                result_list[index] = 'y'
+
+
+    '''BEGINNING TO LOGIC CHECK'''
+    print('List: ', word_list)
     possible_answers = word_list
+    print('Possible: ', possible_answers)
     to_be_removed = []
     letter_index = 0
+
 
     '''removing all words that have letters that came back grey'''
 
     for char in starting_word_list:
         for word in possible_answers:
+            print(char, word)
             if result_list[letter_index] == 'o' and word.__contains__(char):
-                to_be_removed.append(word)
+                for count, secondChar in enumerate(word):
+
+                    to_be_removed.append(word)
+
+
         letter_index = letter_index + 1;
 
     for word in to_be_removed:
         if possible_answers.__contains__(word):
             possible_answers.remove(word)
 
-    # print(possible_answers)
+    print('after grey:',possible_answers)
 
     '''removing words with yellow letters'''
 
-    yellow_letters = []
-    yellow_indexes = []
+
     to_be_removed = []
 
-    for count, letter in enumerate(starting_word_list):
-        if result_list[count] == 'y':
-            yellow_letters.append(letter)
-            yellow_indexes.append(count)
+
 
     for count, letter in enumerate(yellow_letters):
         for word in possible_answers:
@@ -52,16 +75,10 @@ def checkWord(starting_word, word_list, result):
         if possible_answers.__contains__(word):
             possible_answers.remove(word)
 
+    #print('after yellow:', possible_answers)
     '''filtering out for green letters'''
 
-    green_letters = []
-    green_indexes = []
     to_be_removed = []
-
-    for count, letter in enumerate(starting_word_list):
-        if result_list[count] == 'g':
-            green_letters.append(letter)
-            green_indexes.append(count)
 
     for word in possible_answers:
         for count, letter in enumerate(green_letters):
@@ -72,4 +89,5 @@ def checkWord(starting_word, word_list, result):
         if possible_answers.__contains__(word):
             possible_answers.remove(word)
 
+    #print('after green:',possible_answers)
     return possible_answers
